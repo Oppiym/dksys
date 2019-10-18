@@ -16,7 +16,8 @@
             <v-carousel-item
                 v-for="event in events"
                 :src="event.imageURL"
-                :key="event.id">
+                :key="event.id"
+                @click="onLoadEvent(event.id)">
                 <div class="title" >
                     {{ event.title }}
                 </div>
@@ -31,10 +32,17 @@
 <script>
 export default {
   data: () => ({
-      events:[{ imageURL: 'http://s7606.pcdn.co/wp-content/uploads/2016/04/New-Yorker-1_tcm87-19419.jpg', id: 'fdfsfd',title:'meetup in new york' },
-  { imageURL: 'https://i3.photo.2gis.com/images/branch/1/140737493066473_b179.jpg', id: 'fd56d',title:'meetup ' }
-]
-  })
+     }),
+    computed:{
+        events(){
+            return this.$store.getters.featuredEvents
+        }
+    },
+  methods:{
+      onLoadEvent(id){
+          this.$router.push('/events/' + id);
+      }
+  }
 };
 </script>
 <style scoped>
