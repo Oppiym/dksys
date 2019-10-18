@@ -24,9 +24,23 @@ export default new Vuex.Store({
         }]
     },
     mutations: {
-
+        createEvent (state,payload) {
+            state.loadedEvents.push(payload)
+        }
     },
     actions: {
+        createEvent ({commit}, payload) {
+            const meetup = {
+                title: payload.title,
+                location: payload.location,
+                imageUrl: payload.imageUrl,
+                description: payload.description,
+                date: payload.date,
+                id:'34324twetewefewfewfewfefweewfefwtfwefgt'
+            }
+            //connect to firebase and store it
+            commit('createEvent', event)
+        }
 
     },
     getters: {
