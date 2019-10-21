@@ -10,7 +10,6 @@
           <div class="info--text">{{ event.location }}</div>
           <div>
             {{ event.date }}
-            {{ event.time }}
           </div>
           <div>
             {{ event.description }}

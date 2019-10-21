@@ -38,6 +38,7 @@ export default new Vuex.Store({
         imageURL: payload.imageURL,
         description: payload.description,
         date: payload.date,
+        time: payload.time,
         id: '34324twetewefewfewfewfefweewfefwtfwefgt'
       }
 

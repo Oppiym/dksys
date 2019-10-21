@@ -12,7 +12,7 @@
                 <v-card-title primary-title>
                   <div>
                     <h5>{{ event.title }}</h5>
-                    <div>{{ event.date }} {{ event.time }}</div>
+                    <div>{{ event.date }}</div>
                   </div>
                 </v-card-title>
                 <v-card-actions>
