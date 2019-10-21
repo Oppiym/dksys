@@ -7,12 +7,12 @@
         </v-card-title>
         <v-img height="400px" :src="event.imageURL"> </v-img>
         <v-card-text>
-          <div class="info--text">{{event.location}}</div>
-            <div>
-                {{ event.date }}
-            </div>          
+          <div class="info--text">{{ event.location }}</div>
           <div>
-            {{event.description}}
+            {{ event.date }}
+          </div>
+          <div>
+            {{ event.description }}
           </div>
         </v-card-text>
         <v-card-actions>

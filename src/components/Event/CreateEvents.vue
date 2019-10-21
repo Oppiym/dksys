@@ -1,12 +1,6 @@
 <template>
   <v-card flat>
-    <v-snackbar
-      v-model="snackbar"
-      absolute
-      top
-      right
-      color="success"
-    >
+    <v-snackbar v-model="snackbar" absolute top right color="success">
       <span>Мероприятие создано!</span>
       <v-icon dark>mdi-checkbox-marked-circle</v-icon>
     </v-snackbar>
@@ -23,15 +17,17 @@
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="6">
-              <h4>Дата и время мероприятия</h4>
-              <v-date-picker v-model="form.date" ></v-date-picker>
-              <p>{{ form.date }}</p>
-              <v-time-picker v-model="form.time"
+            <h4>Дата и время мероприятия</h4>
+            <v-date-picker v-model="form.date"></v-date-picker>
+            <p>{{ form.date }}</p>
+            <v-time-picker
+              v-model="form.time"
               format="24hr"
               scrollable
               min="9:30"
-              max="22:15"></v-time-picker>
-              <p>{{ form.time }}</p>
+              max="22:15"
+            ></v-time-picker>
+            <p>{{ form.time }}</p>
           </v-col>
           <v-col cols="12" sm="6">
             <v-text-field
@@ -51,15 +47,10 @@
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="6">
-            <v-img
-            height="150px"
-            :src="form.imageURL"></v-img>
+            <v-img height="150px" :src="form.imageURL"></v-img>
           </v-col>
           <v-col cols="12">
-            <v-textarea
-              v-model="form.description"
-              color="teal"
-            >
+            <v-textarea v-model="form.description" color="teal">
               <template v-slot:label>
                 <div>
                   Описание
@@ -78,10 +69,7 @@
             ></v-select>
           </v-col>
           <v-col cols="12">
-            <v-checkbox
-              v-model="form.paid"
-              color="green"
-            >
+            <v-checkbox v-model="form.paid" color="green">
               <template v-slot:label>
                 <div @click.stop="">
                   Мероприятие платное?
@@ -95,90 +83,79 @@
       <v-card-actions>
         <v-btn text @click="resetForm">Отмена</v-btn>
         <v-spacer></v-spacer>
-        <v-btn
-          :disabled="!formIsValid"
-          text
-          color="primary"
-          type="submit"
-        >Создать мероприятие</v-btn>
+        <v-btn :disabled="!formIsValid" text color="primary" type="submit"
+          >Создать мероприятие</v-btn
+        >
       </v-card-actions>
     </v-form>
   </v-card>
 </template>
 
-
 <script>
-  export default {
-    data () {
-      const defaultForm = Object.freeze({
-        title: '',
-        location: '',
-        description: '',
-        typeOfEvent: '',
-        imageURL:'',
-        date: '',
-        time: '',
-        paid: false
-      })
+export default {
+  data() {
+    const defaultForm = Object.freeze({
+      title: "",
+      location: "",
+      description: "",
+      typeOfEvent: "",
+      imageURL: "",
+      date: "",
+      time: "",
+      paid: false
+    });
 
-      return {
-        form: Object.assign({}, defaultForm),
-        rules: {
-          typeOfEvent: [val => (val || '').length > 0 || 'Необходимо заполнить'],
-          title: [val => (val || '').length > 0 || 'Необходимо заполнить']
-        },
-        eventTypes: ['Концерт', 'Конкурс', 'Фестиваль', 'Мастеркласс', 'Лекция'],
-        snackbar: false,
-        defaultForm
+    return {
+      form: Object.assign({}, defaultForm),
+      rules: {
+        typeOfEvent: [val => (val || "").length > 0 || "Необходимо заполнить"],
+        title: [val => (val || "").length > 0 || "Необходимо заполнить"]
+      },
+      eventTypes: ["Концерт", "Конкурс", "Фестиваль", "Мастеркласс", "Лекция"],
+      snackbar: false,
+      defaultForm
+    };
+  },
+
+  computed: {
+    formIsValid() {
+      return this.form.title && this.form.location && this.form.typeOfEvent;
+    },
+    subDate() {
+      const goodDate = this.form.date + " " + this.form.time;
+      console.log(goodDate);
+      console.log(typeof goodDate);
+      return goodDate;
+    }
+  },
+
+  methods: {
+    resetForm() {
+      this.form = Object.assign({}, this.defaultForm);
+      this.$refs.form.reset();
+    },
+    onCreateEvent() {
+      if (!this.formIsValid) {
+        return;
       }
-    },
-
-    computed: {
-      formIsValid () {
-        return (
-          this.form.title &&
-          this.form.location &&
-          this.form.typeOfEvent
-         )
-      },
-      subDate(){
-          const goodDate = this.form.date +' '+ this.form.time
-          console.log(goodDate)
-          console.log(typeof goodDate)
-          return goodDate
-          }
-
-
-
-      },
-
-    methods: {
-      resetForm () {
-        this.form = Object.assign({}, this.defaultForm)
-        this.$refs.form.reset()
-      },
-      onCreateEvent () {
-          if (!this.formIsValid){
-              return
-          }
-          const eventData = {
-              title: this.form.title,
-              location: this.form.location,
-              description: this.form.description,
-              imageURL: this.form.imageURL,
-              date: this.subDate
-              }
-          console.log (eventData)
-          console.log (typeof eventData)
-          console.log (eventData.title)
-          console.log (typeof eventData.title)
-          console.log (eventData.date)
-          console.log (typeof eventData.date)
-          this.$store.dispatch('createEvent', eventData)
-          this.$router.push('/events')
-        this.snackbar = true
-        this.resetForm()
-      },
-    },
+      const eventData = {
+        title: this.form.title,
+        location: this.form.location,
+        description: this.form.description,
+        imageURL: this.form.imageURL,
+        date: this.subDate
+      };
+      console.log(eventData);
+      console.log(typeof eventData);
+      console.log(eventData.title);
+      console.log(typeof eventData.title);
+      console.log(eventData.date);
+      console.log(typeof eventData.date);
+      this.$store.dispatch("createEvent", eventData);
+      this.$router.push("/events");
+      this.snackbar = true;
+      this.resetForm();
+    }
   }
+};
 </script>

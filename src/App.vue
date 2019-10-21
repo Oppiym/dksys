@@ -1,45 +1,56 @@
 <template>
-<v-app id="inspire">
-  <v-navigation-drawer v-model="drawer" app clipped>
-    <v-list dense>
-      <v-list-item v-for="item in menuItems" :key="item.title" :to="item.link">
-        <v-list-item-action>
-          <v-icon>{{ item.icon }}</v-icon>
-        </v-list-item-action>
-        <v-list-item-content>
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-    </v-list>
-  </v-navigation-drawer>
+  <v-app id="inspire">
+    <v-navigation-drawer v-model="drawer" app clipped>
+      <v-list dense>
+        <v-list-item
+          v-for="item in menuItems"
+          :key="item.title"
+          :to="item.link"
+        >
+          <v-list-item-action>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
 
-  <v-app-bar app clipped-left color="indigo" dark>
-    <router-link to="/">
-      <v-img :src="require('@/assets/logo.png')" contain height="48" width="48" max-width="48" @click="$vuetify.goTo(0)" />
-    </router-link>
-
-    <v-toolbar-title>
-      <router-link to="/" tag="span" style="cursor: pointer">
-        Культурный Центр Москворечье
+    <v-app-bar app clipped-left color="indigo" dark>
+      <router-link to="/">
+        <v-img
+          :src="require('@/assets/logo.png')"
+          contain
+          height="48"
+          width="48"
+          max-width="48"
+          @click="$vuetify.goTo(0)"
+        />
       </router-link>
-    </v-toolbar-title>
-    <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-    <v-spacer></v-spacer>
-    <v-toolbar-items>
-      <v-btn text v-for="item in menuItems" :key="item.title" :to="item.link">
-        <v-icon left>{{ item.icon }}</v-icon>
-        {{ item.title }}
-      </v-btn>
-    </v-toolbar-items>
-  </v-app-bar>
 
-  <v-content>
-    <router-view></router-view>
-  </v-content>
-  <v-footer color="indigo" app>
-    <span class="white--text">&copy; 2019 Oppiym</span>
-  </v-footer>
-</v-app>
+      <v-toolbar-title>
+        <router-link to="/" tag="span" style="cursor: pointer">
+          Культурный Центр Москворечье
+        </router-link>
+      </v-toolbar-title>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-spacer></v-spacer>
+      <v-toolbar-items>
+        <v-btn text v-for="item in menuItems" :key="item.title" :to="item.link">
+          <v-icon left>{{ item.icon }}</v-icon>
+          {{ item.title }}
+        </v-btn>
+      </v-toolbar-items>
+    </v-app-bar>
+
+    <v-content>
+      <router-view></router-view>
+    </v-content>
+    <v-footer color="indigo" app>
+      <span class="white--text">&copy; 2019 Oppiym</span>
+    </v-footer>
+  </v-app>
 </template>
 
 <script>
@@ -49,7 +60,8 @@ export default {
   },
   data: () => ({
     drawer: false,
-    menuItems: [{
+    menuItems: [
+      {
         icon: "supervisor_account",
         title: "Мероприятия",
         link: "/events"
