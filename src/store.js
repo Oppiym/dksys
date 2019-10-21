@@ -30,15 +30,15 @@ export default new Vuex.Store({
     },
     actions: {
         createEvent ({commit}, payload) {
-            const meetup = {
+            const event = {
                 title: payload.title,
                 location: payload.location,
-                imageUrl: payload.imageUrl,
+                imageURL: payload.imageURL,
                 description: payload.description,
                 date: payload.date,
                 id:'34324twetewefewfewfewfefweewfefwtfwefgt'
             }
-            //connect to firebase and store it
+
             commit('createEvent', event)
         }
 

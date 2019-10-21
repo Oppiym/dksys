@@ -23,6 +23,17 @@
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="6">
+              <h4>Дата и время мероприятия</h4>
+              <v-date-picker v-model="form.date" ></v-date-picker>
+              <p>{{ form.date }}</p>
+              <v-time-picker v-model="form.time"
+              format="24hr"
+              scrollable
+              min="9:30"
+              max="22:15"></v-time-picker>
+              <p>{{ form.time }}</p>
+          </v-col>
+          <v-col cols="12" sm="6">
             <v-text-field
               v-model="form.location"
               :rules="rules.location"
@@ -34,7 +45,6 @@
           <v-col cols="12" sm="6">
             <v-text-field
               v-model="form.imageURL"
-              :rules="rules.imageURL"
               color="blue darken-2"
               label="Ссылка на картинку"
               required
@@ -74,13 +84,14 @@
             >
               <template v-slot:label>
                 <div @click.stop="">
-                  Мероприятие платное?</a>
+                  Мероприятие платное?
                 </div>
               </template>
             </v-checkbox>
           </v-col>
         </v-row>
       </v-container>
+
       <v-card-actions>
         <v-btn text @click="resetForm">Отмена</v-btn>
         <v-spacer></v-spacer>
@@ -105,6 +116,8 @@
         description: '',
         typeOfEvent: '',
         imageURL:'',
+        date: '',
+        time: '',
         paid: false
       })
 
@@ -128,7 +141,16 @@
           this.form.typeOfEvent
          )
       },
-    },
+      subDate(){
+          const goodDate = this.form.date +' '+ this.form.time
+          console.log(goodDate)
+          console.log(typeof goodDate)
+          return goodDate
+          }
+
+
+
+      },
 
     methods: {
       resetForm () {
@@ -136,14 +158,24 @@
         this.$refs.form.reset()
       },
       onCreateEvent () {
+          if (!this.formIsValid){
+              return
+          }
           const eventData = {
-              title: this.title,
-              location: this.location,
-              description: this.description,
-              imageURL:this.imageURL,
-              date: new Date()
+              title: this.form.title,
+              location: this.form.location,
+              description: this.form.description,
+              imageURL: this.form.imageURL,
+              date: this.subDate
               }
+          console.log (eventData)
+          console.log (typeof eventData)
+          console.log (eventData.title)
+          console.log (typeof eventData.title)
+          console.log (eventData.date)
+          console.log (typeof eventData.date)
           this.$store.dispatch('createEvent', eventData)
+          this.$router.push('/events')
         this.snackbar = true
         this.resetForm()
       },
