@@ -44,9 +44,7 @@
       </v-toolbar-items>
     </v-app-bar>
 
-    <v-content>
-      <router-view></router-view>
-    </v-content>
+    <v-content> <router-view></router-view> </v-content>
     <v-footer color="indigo" app>
       <span class="white--text">&copy; 2019 Oppiym</span>
     </v-footer>
@@ -60,33 +58,48 @@ export default {
   },
   data: () => ({
     drawer: false,
-    menuItems: [
-      {
-        icon: "supervisor_account",
-        title: "Мероприятия",
-        link: "/events"
-      },
-      {
-        icon: "room",
-        title: "Добавить мероприятие",
-        link: "/events/new"
-      },
-      {
-        icon: "person",
-        title: "Профиль",
-        link: "/profile"
-      },
-      {
-        icon: "face",
-        title: "Зарегистрироваться",
-        link: "/signup"
-      },
-      {
-        icon: "lock_open",
-        title: "Войти",
-        link: "/signin"
-      }
-    ]
-  })
+
+}),
+computed:{
+    menuItems(){
+        let menuItems = [
+          {
+            icon: "face",
+            title: "Зарегистрироваться",
+            link: "/signup"
+          },
+          {
+            icon: "lock_open",
+            title: "Войти",
+            link: "/signin"
+          }
+        ]
+    if (this.userIsAuthenticated) {
+         menuItems: [
+              {
+                icon: "supervisor_account",
+                title: "Мероприятия",
+                link: "/events"
+              },
+              {
+                icon: "room",
+                title: "Добавить мероприятие",
+                link: "/events/new"
+              },
+              {
+                icon: "person",
+                title: "Профиль",
+                link: "/profile"
+              }
+            ]
+            }
+        return menuItems
+
+    },
+    userIsAuthenticated () {
+        return this.$store.getters.user !==null && this.$store.getters.user !== undefined
+    }
+}
+
 };
 </script>

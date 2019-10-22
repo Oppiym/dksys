@@ -121,12 +121,12 @@ export default {
     formIsValid() {
       return this.form.title && this.form.location && this.form.typeOfEvent;
     },
-    subDate() {
+    /*subDate() {
       const goodDate = this.form.date + " " + this.form.time;
       console.log(goodDate);
       console.log(typeof goodDate);
       return goodDate;
-    }
+  }*/
   },
 
   methods: {
@@ -145,12 +145,6 @@ export default {
         imageURL: this.form.imageURL,
         date: this.subDate
       };
-      console.log(eventData);
-      console.log(typeof eventData);
-      console.log(eventData.title);
-      console.log(typeof eventData.title);
-      console.log(eventData.date);
-      console.log(typeof eventData.date);
       this.$store.dispatch("createEvent", eventData);
       this.$router.push("/events");
       this.snackbar = true;

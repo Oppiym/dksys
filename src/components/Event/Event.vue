@@ -9,7 +9,7 @@
         <v-card-text>
           <div class="info--text">{{ event.location }}</div>
           <div>
-            {{ event.date }}
+            {{ event.date | date }}
             {{ event.time }}
           </div>
           <div>
@@ -18,7 +18,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary">reg</v-btn>
+          <v-btn color="primary">Зарегистрироваться</v-btn>
         </v-card-actions>
       </v-card>
     </v-layout>
