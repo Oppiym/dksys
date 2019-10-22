@@ -18,72 +18,72 @@ import Signup from '@/components/User/Signup'
 Vue.use(Router)
 
 export default new Router({
-    mode: 'history',
-    routes: [{
-            path: '/',
-            name: 'Home',
-            component: Home
-        },
-        {
-            path: '/events',
-            name: 'Events',
-            component: Events
-        },
-        {
-            path: '/events/new',
-            name: 'CreateEvents',
-            component: CreateEvents
-        },
-        {
-            path: '/events/:id',
-            name: 'Event',
-            component: Event,
-            props:true
-        },{
-            path: '/clubs',
-            name: 'Clubs',
-            component: Clubs
-        },
-        {
-            path: '/clubs/new',
-            name: 'CreateClubs',
-            component: CreateClubs
-        },
-        {
-            path: '/events/:id',
-            name: 'Club',
-            component: Club,
-            props:true
-        },{
-            path: '/news',
-            name: 'News',
-            component: News
-        },
-        {
-            path: '/news/new',
-            name: 'CreateNews',
-            component: CreateNews
-        },
-        {
-            path: '/news/:id',
-            name: 'Article',
-            component: Article,
-            props:true
-        },
-        {
-            path: '/profile',
-            name: 'Profile',
-            component: Profile
-        },
-        {
-            path: '/signup',
-            name: 'Signup',
-            component: Signup
-        },
-        {
-            path: '/signin',
-            name: 'Signin',
-            component: Signin
-        }
-    ]
+  mode: 'history',
+  routes: [{
+      path: '/',
+      name: 'Home',
+      component: Home
+    },
+    {
+      path: '/events',
+      name: 'Events',
+      component: Events
+    },
+    {
+      path: '/events/new',
+      name: 'CreateEvents',
+      component: CreateEvents
+    },
+    {
+      path: '/events/:id',
+      name: 'Event',
+      component: Event,
+      props: true
+    }, {
+      path: '/clubs',
+      name: 'Clubs',
+      component: Clubs
+    },
+    {
+      path: '/clubs/new',
+      name: 'CreateClubs',
+      component: CreateClubs
+    },
+    {
+      path: '/events/:id',
+      name: 'Club',
+      component: Club,
+      props: true
+    }, {
+      path: '/news',
+      name: 'News',
+      component: News
+    },
+    {
+      path: '/news/new',
+      name: 'CreateNews',
+      component: CreateNews
+    },
+    {
+      path: '/news/:id',
+      name: 'Article',
+      component: Article,
+      props: true
+    },
+    {
+      path: '/profile',
+      name: 'Profile',
+      component: Profile
+    },
+    {
+      path: '/signup',
+      name: 'Signup',
+      component: Signup
+    },
+    {
+      path: '/signin',
+      name: 'Signin',
+      component: Signin
+    }
+  ]
 })

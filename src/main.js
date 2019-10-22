@@ -14,16 +14,16 @@ new Vue({
   store,
   vuetify,
   render: h => h(App),
-  created(){
-      firebase.initializeApp({
-          apiKey: 'AIzaSyB0GjIB4x2ewFE6l01tUWck1w6LtHtK74k',
-    authDomain: 'dksys-73c56.firebaseapp.com',
-    databaseURL: 'https://dksys-73c56.firebaseio.com',
-    projectId: 'dksys-73c56',
-    storageBucket: 'dksys-73c56.appspot.com',
-    messagingSenderId: '1097420408959',
-    appId: '1:1097420408959:web:ea700b9d681ef7f3de974a',
-    measurementId: 'G-B673LJXFFZ'
-      })
+  created() {
+    firebase.initializeApp({
+      apiKey: 'AIzaSyB0GjIB4x2ewFE6l01tUWck1w6LtHtK74k',
+      authDomain: 'dksys-73c56.firebaseapp.com',
+      databaseURL: 'https://dksys-73c56.firebaseio.com',
+      projectId: 'dksys-73c56',
+      storageBucket: 'dksys-73c56.appspot.com',
+      messagingSenderId: '1097420408959',
+      appId: '1:1097420408959:web:ea700b9d681ef7f3de974a',
+      measurementId: 'G-B673LJXFFZ'
+    })
   }
 }).$mount('#app')
