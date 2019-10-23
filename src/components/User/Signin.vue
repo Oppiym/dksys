@@ -1,93 +1,118 @@
 <template>
-  <v-app id="inspire">
-    <v-content>
-      <v-container
-        class="fill-height"
-        fluid
-      >
-        <v-row
-          align="center"
-          justify="center"
-        >
-          <v-col
-            cols="12"
-            sm="8"
-            md="4"
-          >
-            <v-card class="elevation-12">
-              <v-toolbar
-                color="primary"
-                dark
-                flat
-              >
-                <v-toolbar-title>Login form</v-toolbar-title>
-                <v-spacer></v-spacer>
-                <v-tooltip bottom>
-                  <template v-slot:activator="{ on }">
-                    <v-btn
-                      :href="source"
-                      icon
-                      large
-                      target="_blank"
-                      v-on="on"
-                    >
-                      <v-icon>mdi-code-tags</v-icon>
-                    </v-btn>
-                  </template>
-                  <span>Source</span>
-                </v-tooltip>
-                <v-tooltip right>
-                  <template v-slot:activator="{ on }">
-                    <v-btn
-                      icon
-                      large
-                      href="https://codepen.io/johnjleider/pen/pMvGQO"
-                      target="_blank"
-                      v-on="on"
-                    >
-                      <v-icon>mdi-codepen</v-icon>
-                    </v-btn>
-                  </template>
-                  <span>Codepen</span>
-                </v-tooltip>
-              </v-toolbar>
-              <v-card-text>
-                <v-form>
-                  <v-text-field
-                    label="Login"
-                    name="login"
-                    prepend-icon="person"
-                    type="text"
-                  ></v-text-field>
+<v-container class="fill-height" fluid>
+  <v-row align="center" justify="center">
+      <v-layout row wrap v-if="error">
+          <v-flex xs12 sm6 offset-sm3 >
+              <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
+          </v-flex>
+      </v-layout>
+    <v-flex sx="12" sm="8">
+      <v-card class="elevation-12">
+        <v-toolbar color="primary" dark flat>
+          <v-toolbar-title>Вход</v-toolbar-title>
+          <v-spacer></v-spacer>
+        </v-toolbar>
+        <v-form @submit.prevent="onSingIn">
+          <v-card-text>
 
-                  <v-text-field
-                    id="password"
-                    label="Password"
-                    name="password"
-                    prepend-icon="lock"
-                    type="password"
-                  ></v-text-field>
-                </v-form>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="primary">Login</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-content>
-  </v-app>
+            <v-text-field label="Mail" name="Mail" prepend-icon="person" id="email" v-model="email" type="email" required :rules="[rules.email]"></v-text-field>
+            <v-text-field id="password" label="Пароль" name="password" prepend-icon="lock" type="password" v-model="password" required></v-text-field>
+
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="error">Зайти через mos.ru</v-btn>
+            <v-btn color="primary" type="submit" :disabled="loading" :loading="loading">Войти
+            <span slot="loader" class="custom-loader"> <v-icon>cached</v-icon> </span></v-btn>
+          </v-card-actions>
+        </v-form>
+      </v-card>
+    </v-flex>
+  </v-row>
+</v-container>
 </template>
 
 <script>
-  export default {
-    props: {
-      source: String,
+export default {
+  data() {
+    return {
+      email: "",
+      password: "",
+      rules: {
+        email: value => {
+          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          return pattern.test(value) || "Неверный e-mail";
+        }
+      }
+      }
+  },
+  computed: {
+     user() {
+      return this.$store.getters.user
     },
-    data: () => ({
-      drawer: null,
-    }),
+      error(){
+          return this.$store.getters.error
+      },
+      loading(){
+          return this.$store.getters.loading
+      }
+  },
+  watch: {
+    user(value) {
+      if (value !== null && value !== undefined) {
+        this.$router.push('/')
+      }
+    }
+  },
+  methods: {
+    onSingIn() {
+      this.$store.dispatch('signUserIn', {
+        email: this.email,
+        password: this.password
+      })
+    },
+      onDismissed (){
+          console.log ('Dismissed Alert!')
+          this.$store.dispatch('clearError')
+      }
   }
+}
 </script>
+<style>
+  .custom-loader {
+    animation: loader 1s infinite;
+    display: flex;
+  }
+  @-moz-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @-webkit-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @-o-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>

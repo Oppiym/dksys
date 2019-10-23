@@ -10,9 +10,24 @@
         >
       </v-flex>
     </v-layout>
+    <v-layout xs12 row wrap>
+        <v-flex xs12>
+        <v-progress-circular
+      indeterminate
+          color="primary"
+
+          class="primary-text"
+          :width="7"
+          :size="70"
+      v-if="loading"
+    ></v-progress-circular>
+
+</v-flex>
+
+    </v-layout>
     <v-layout row wrap>
       <v-flex xs12>
-        <v-carousel>
+        <v-carousel v-if="!loading">
           <v-carousel-item
             v-for="event in events"
             :src="event.imageURL"
@@ -35,7 +50,10 @@ export default {
   computed: {
     events() {
       return this.$store.getters.featuredEvents;
-    }
+  },
+  loading () {
+      return this.$store.getters.loading
+  }
   },
   methods: {
     onLoadEvent(id) {
@@ -44,10 +62,6 @@ export default {
   }
 };
 </script>
-<style scoped>
-.title {
-  position: absolute;
-  bottom: 50px;
-  background-color: red;
-}
+<style>
+
 </style>

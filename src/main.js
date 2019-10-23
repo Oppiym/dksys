@@ -6,9 +6,12 @@ import vuetify from './plugins/vuetify';
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import DateFilter from './filtres/date'
 import * as firebase from 'firebase'
+import AlertCmp from  './components/Shared/Alert'
 
 Vue.config.productionTip = false
 Vue.filter('date', DateFilter)
+Vue.component('app-alert',AlertCmp)
+
 new Vue({
   router,
   store,
@@ -25,5 +28,6 @@ new Vue({
       appId: '1:1097420408959:web:ea700b9d681ef7f3de974a',
       measurementId: 'G-B673LJXFFZ'
     })
+    this.$store.dispatch('loadEvents')
   }
 }).$mount('#app')

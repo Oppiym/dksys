@@ -65,7 +65,7 @@ export default {
         }
       ]
       if (this.userIsAuthenticated) {
-        menuItems: [{
+        menuItems = [{
             icon: "supervisor_account",
             title: "Мероприятия",
             link: "/events"
@@ -86,7 +86,7 @@ export default {
 
     },
     userIsAuthenticated() {
-      return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+      return this.$store.getters.user.id !== null && this.$store.getters.user.id !== undefined
     }
   }
 
