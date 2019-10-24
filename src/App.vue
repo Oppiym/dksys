@@ -9,6 +9,15 @@
         <v-list-item-content>
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item-content>
+    </v-list-item>
+    <v-list-item v-if ="userIsAuthenticated"
+    @click="onLogout">
+        <v-list-item-action>
+          <v-icon>exit_to_app</v-icon>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title>Выход</v-list-item-title>
+        </v-list-item-content>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
@@ -29,6 +38,11 @@
       <v-btn text v-for="item in menuItems" :key="item.title" :to="item.link">
         <v-icon left>{{ item.icon }}</v-icon>
         {{ item.title }}
+      </v-btn>
+      <v-btn text v-if ="userIsAuthenticated"
+      @click="onLogout">
+        <v-icon left>exit_to_app</v-icon>
+        Выход
       </v-btn>
     </v-toolbar-items>
   </v-app-bar>
@@ -88,7 +102,13 @@ export default {
     userIsAuthenticated() {
       return this.$store.getters.user.id !== null && this.$store.getters.user.id !== undefined
     }
-  }
+},
+methods: {
+    onLogout() {
+        this.$store.dispatch ('logout')
+        this.$router.push("/");
+    }
+}
 
 };
 </script>

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
+import router from './router/router'
 import store from './store'
 import vuetify from './plugins/vuetify';
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
@@ -27,7 +27,12 @@ new Vue({
       messagingSenderId: '1097420408959',
       appId: '1:1097420408959:web:ea700b9d681ef7f3de974a',
       measurementId: 'G-B673LJXFFZ'
-    })
+  })
+    firebase.auth().onAuthStateChanged ( (user)=> {
+        if (user) {
+            this.$store.dispatch('autoSignIn', user)
+        }
+    });
     this.$store.dispatch('loadEvents')
   }
 }).$mount('#app')

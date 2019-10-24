@@ -33,7 +33,7 @@
         </v-col>
 
         <v-col xs="12" sm="6" md="4">
-          <v-text-field v-model="form.imageURL" color="blue darken-2" label="Ссылка на картинку" required></v-text-field>
+          <v-file-input prepend-icon="mdi-camera" show-size chips accept="image/*" label="Загрузите картинку" @change="onFilePicked" ></v-file-input>
           <v-img height="150px" :src="form.imageURL"></v-img>
         </v-col>
       </v-row>
@@ -70,7 +70,8 @@ export default {
       imageURL: "",
       date: new Date().toISOString().substring(10, 0),
       time: null,
-      paid: false
+      paid: false,
+      image: null
     });
 
     return {
@@ -116,11 +117,14 @@ export default {
       if (!this.formIsValid) {
         return;
       }
+      if (!this.image){
+          return;
+      }
       const eventData = {
         title: this.form.title,
         location: this.form.location,
         description: this.form.description,
-        imageURL: this.form.imageURL,
+        image: this.image,
         date: this.form.date,
         time: this.form.time
       };
@@ -128,7 +132,17 @@ export default {
       this.$router.push("/events");
       this.snackbar = true;
       this.resetForm();
+  },
+  onFilePicked (event) {
+      console.log (event)
+      let reader = new FileReader()
+
+      reader.addEventListener ('load',()=>{
+          this.form.imageURL = reader.result
+          this.image = event
+          })
+      reader.readAsDataURL(event)
+      console.log (reader.readAsDataURL(event))
     }
-  }
-};
+}};
 </script>
