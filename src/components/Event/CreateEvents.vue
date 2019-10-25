@@ -33,7 +33,12 @@
         </v-col>
 
         <v-col xs="12" sm="6" md="4">
-          <v-file-input prepend-icon="mdi-camera" show-size chips accept="image/*" label="Загрузите картинку" @change="onFilePicked" ></v-file-input>
+            <v-file-input
+            v-model="form.image"
+            label="Загрузите картинку"
+            accept="image/*"
+            @change="onFileChange"
+          ></v-file-input>
           <v-img height="150px" :src="form.imageURL"></v-img>
         </v-col>
       </v-row>
@@ -61,13 +66,14 @@
 
 <script>
 export default {
-  data() {
+    data() {
+
     const defaultForm = Object.freeze({
       title: "",
       location: "",
       description: "",
       typeOfEvent: "",
-      imageURL: "",
+      imageURL: '',
       date: new Date().toISOString().substring(10, 0),
       time: null,
       paid: false,
@@ -124,25 +130,24 @@ export default {
         title: this.form.title,
         location: this.form.location,
         description: this.form.description,
-        image: this.image,
         date: this.form.date,
-        time: this.form.time
+        time: this.form.time,
+        image: this.form.image
       };
       this.$store.dispatch("createEvent", eventData);
       this.$router.push("/events");
       this.snackbar = true;
       this.resetForm();
   },
-  onFilePicked (event) {
-      console.log (event)
+    onFileChange() {
       let reader = new FileReader()
-
-      reader.addEventListener ('load',()=>{
-          this.form.imageURL = reader.result
-          this.image = event
-          })
-      reader.readAsDataURL(event)
-      console.log (reader.readAsDataURL(event))
+      reader.addEventListener ('load', () => {
+        this.form.imageURL = reader.result
+        })
+      reader.readAsDataURL(this.form.image)
+      this.image = this.form.image
     }
-}};
+
+}
+}
 </script>
