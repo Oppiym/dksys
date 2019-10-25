@@ -4,6 +4,10 @@
       <v-card>
         <v-card-title primary-title>
           <h4>{{ event.title }}</h4>
+          <template v-if='true'>
+              <v-spacer></v-spacer>
+              <app-edit></app-edit>
+          </template>
         </v-card-title>
         <v-img height="400px" :src="event.imageURL"> </v-img>
         <v-card-text>
@@ -31,9 +35,12 @@ export default {
   computed: {
     event() {
       return this.$store.getters.loadedEvent(this.id);
+  },
+    userIsAuthenticated(){
+        return this.$store.getters.user !== null && this.$store.getters.user !== undefined
     }
   }
-};
+  };
 </script>
 
 <style lang="css" scoped></style>

@@ -7,10 +7,12 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import DateFilter from './filtres/date'
 import * as firebase from 'firebase'
 import AlertCmp from  './components/Shared/Alert'
+import EditEvent from './components/Event/Edit/EditEventDetailsDialog'
 
 Vue.config.productionTip = false
 Vue.filter('date', DateFilter)
-Vue.component('app-alert',AlertCmp)
+Vue.component('app-alert', AlertCmp)
+Vue.component('app-edit', EditEvent)
 
 new Vue({
   router,
