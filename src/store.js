@@ -103,6 +103,9 @@ export default new Vuex.Store({
                 })
 
         },
+        updateEventData({ commit }, payload) {
+
+        }
         signUserUp({
             commit
         }, payload) {

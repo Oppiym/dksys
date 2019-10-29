@@ -1,12 +1,25 @@
 <template lang="html">
   <v-container grid-list-xs,sm,md,lg,xl>
-    <v-layout row wrap>
+      <v-layout xs12 row wrap v-if="loading">
+          <v-flex xs12>
+          <v-progress-circular
+        indeterminate
+            color="primary"
+
+            class="primary-text"
+            :width="7"
+            :size="70"
+        v-if="loading"
+      ></v-progress-circular>
+      </v-flex>
+  </v-layout >
+    <v-layout row wrap v-else>
       <v-card>
         <v-card-title primary-title>
           <h4>{{ event.title }}</h4>
-          <template v-if='true'>
+          <template v-if= "userIsCreator">
               <v-spacer></v-spacer>
-              <app-edit></app-edit>
+              <app-edit :event="event"></app-edit>
           </template>
         </v-card-title>
         <v-img height="400px" :src="event.imageURL"> </v-img>
@@ -38,6 +51,15 @@ export default {
   },
     userIsAuthenticated(){
         return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+    },
+    userIsCreator(){
+        if (!this.userIsAuthenticated){
+            return false;
+        }
+     return  this.$store.getters.user.id === this.event.creatorId
+    },
+    loading () {
+        return this.$store.getters.loading
     }
   }
   };
