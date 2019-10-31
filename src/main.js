@@ -8,11 +8,13 @@ import DateFilter from './filtres/date'
 import * as firebase from 'firebase'
 import AlertCmp from  './components/Shared/Alert'
 import EditEvent from './components/Event/Edit/EditEventDetailsDialog'
+import EditEventDate from './components/Event/Edit/EditEventDateDialog'
 
 Vue.config.productionTip = false
 Vue.filter('date', DateFilter)
 Vue.component('app-alert', AlertCmp)
 Vue.component('app-edit', EditEvent)
+Vue.component('app-edit-date', EditEventDate)
 
 new Vue({
   router,

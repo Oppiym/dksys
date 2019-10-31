@@ -69,6 +69,12 @@ export default {
                 return
             }
             this.dialog = false
+            this.$store.dispatch('updateEventData',{
+                id: this.event.id,
+                title : this.editedTitle,
+                description : this.editedDescription
+
+            })
         }
     }
 }

@@ -29,6 +29,9 @@
             {{ event.date | date }}
             {{ event.time }}
           </div>
+          <div >
+              <app-edit-date :event="event" v-if= "userIsCreator"></app-edit-date>
+          </div>
           <div>
             {{ event.description }}
           </div>
