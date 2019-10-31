@@ -1,33 +1,28 @@
 <template>
   <v-row justify="center">
-    <v-btn
-      color="primary"
-      dark
-      @click.stop="dialog = true"
-    >
-      Изменить дату
-    </v-btn>
-
     <v-dialog
-      v-model="dialog"
-      max-width="350"
-    >
-      <v-card>
-        <v-card-title class="headline">Редактировать дату</v-card-title>
- <v-divider></v-divider>
- <v-layout row wrap>
-     <v-flex xs12>
-        <v-date-picker v-model="editableDate" :landscape="true" :reactive="true" style="width:100%">
-            <template scope ="{save, cancel}">
-                <v-btn @click.native="dialog=false">Отмена</v-btn>
-                <v-btn @click.native="onSaveChanges">Сохранить</v-btn>
-            </template>
+       ref="dialog"
+       v-model="modal"
+       :return-value.sync="date"
+       persistent
+       width="290px"
+     >
+       <template v-slot:activator="{ on }">
+         <v-text-field
+           v-model="date"
 
-        </v-date-picker>
-     </v-flex>
- </v-layout>
-      </v-card>
-    </v-dialog>
+           label="Изменить дату"
+           prepend-icon="event"
+           readonly
+           v-on="on"
+         ></v-text-field>
+       </template>
+       <v-date-picker v-model="date" scrollable locale="russian">
+         <v-spacer></v-spacer>
+         <v-btn text color="primary" @click="modal = false">Cancel</v-btn>
+         <v-btn text color="primary" @click="onSaveChanges ">OK</v-btn>
+       </v-date-picker>
+     </v-dialog>
   </v-row>
 </template>
 
@@ -37,24 +32,22 @@ export default {
     data () {
       return {
         dialog: false,
-        editableDate: null
+        date: new Date().toISOString().substr(0, 10),
+         modal: false
       }
     },
     methods:{
         onSaveChanges(){
-            const newDate = new Date(this.meetup.date)
-            const newDay = new Date(this.editableDate)
-
             this.dialog = false
             this.$store.dispatch('updateEventData',{
                 id: this.event.id,
-                date:newDate
+                date:this.date
 
             })
         }
     },
     created(){
-        this.editableDate = new Date(this.event.date)
+        console.log(this.event.date, typeof this.event.date)
     }
 }
 </script>
